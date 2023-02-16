@@ -1,0 +1,48 @@
+server:
+  port: ${SERVER_PORT:8086}
+spring:
+  datasource:
+    url: ${POSTGRESQL_URI:jdbc:postgresql://localhost:5432/vinpms?currentSchema=order_coffee}
+    username: ${POSTGRESQL_USER:postgres}
+    password: ${POSTGRESQL_PASSWORD:123456aA@}
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        generate_statistics: true
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:123456a@}
+    timeout: ${REDIS_TIMEOUT:500ms}
+
+common:
+  client:
+    iam:
+      uri: ${CLIENT_IAM_URI:https://localhost/101digital/api/v0}
+
+security:
+  oauth2:
+    authorization:
+      jwt:
+        key-store: order.jks
+        key-store-password: ${OAUTH_JWT_KEY_STORE_PASSWORD:pms2022aA@}
+        key-alias: ${OAUTH_JWT_KEY_ALISAS:order}
+        expires-in: ${OAUTH_JWT_EXPIRED_IN:1h}  # 1 hour, duration in time format nHnMnS
+        refresh-token-expires-in: ${OAUTH_JWT_REFRESH_TOKEN_EXPIRED_IN:30d} # 30 days
+  path-matcher:
+    permit-all-path-patterns:
+      - /
+      - /actuator/**
+      - /v2/api-docs/**
+      - /swagger-resources/**
+      - /webjars/**
+      - /swagger-ui.html
+      - /actuator/**
+      - /null/swagger-resources/**
+      - /health-check/**
+      - /branch/**
+      - /queue/**
+      - /menu/**
+      - /order/**
+      - /user/**
